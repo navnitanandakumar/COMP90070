@@ -1,0 +1,79 @@
+\chapter{Introduction}
+\label{sec:intro}
+We begin this chapter by providing the context and motivation for our study. Next, we state our aim and scope, as well as formulate our research questions. We then briefly describe our approach and list our contributions. Finally, we provide an overview of the thesis.
+\section{Motivation}
+%CONTEXT OF THE STUDY
+%1. Introduce the area of work and explain the environment in which the problem arises
+%2. Mention how the area arose, and cite the major studies that first recognized the issue at hand.
+%3. Explain situational factors that give rise to the question.
+%4. Situate your approach in the larger landscape of the entire research field.
+%5. The context is important because it explains the perspective of the study.
+Languages are composed of words, which in turn combine to convey meaning in the form of phrases and sentences. Some of these combinations are essential to convey a meaning (that cannot be conveyed by its constituents alone) and are referred to as \textit{multiword expressions (MWEs)}. \textit{Carbon footprint} and \textit{in a nutshell} are some examples of MWEs. Since they represent a single meaning, they are often considered to be a single unit. This is because in most cases, the words that comprise the MWE cannot be substituted with their synonyms, nor can their order be changed. Expressions like \textit{wine and dine} (meaning to entertain with good food) and \textit{rhyme or reason} (meaning logical explanation or reason) are examples that illustrate this property of multiword expressions. The component words of these expressions are fixed and cannot be substituted for similar words, for example \textit{wine and food} lends themselves to a more literal interpretation. The order of these words cannot be changed either, for example \textit{reason or rhyme} does not sit right with the native speaker.
+
+While some MWEs are quite transparent in their meaning (\textit{car park} and \textit{application form}, for instance), others are more idiomatic (for example \textit{ivory tower} or \textit{silver screen}). Since MWEs occur as naturally and frequently as single words \citep{Jack:1996}, it is important to devise a means to accurately predict their \textbf{compositionality} -- the degree to which the meaning of the expression can be derived from that of its constituents. This is especially necessary in cases where the MWE can be ambiguous in its context. For example, consider the sentence \textit{It was a piece of cake}, where \textit{piece of cake} could have the literal meaning of a slice of cake or the idiomatic meaning of an easy task. Knowing the degree of compositionality of MWEs is also relevant to broader scale natural language processing tasks, machine translation evaluation\citep{Salehi2015b} for example.
+
+%MOTIVATION FOR THE STUDY
+%1. What is the reason for the study? What problem does it seek to address?
+%2. The study should accomplish something -- the reader should have their understanding advanced in some way. Explain what the advance is to show that the work is worth undertaking.
+%3. E.g. of motivations -- the world is becoming more global, and variation in language use is part of globalization.
+%\section{Motivations}
+\label{motivations}
+The prediction of MWE compositionality has been the topic of many studies over the last decade and great advancements have been made in terms of curating data \citep{Villa2004,Reddy2011,Ramisch2016} and predicting their compositionality by means of distributional similarity and translations \citep{Salehi2013,Salehi2014}. Recently, there has been parallel interest in language embedding models and their impressive performance across a range of tasks, which has sparked discussion on their application to the task of compositionality prediction \citep{Salehi2015,Hakimi2018}. However, the extensive comparison between the models, including the use of modern contextualised embeddings and document- or sentence-level embeddings has not yet been studied.
+
+Also, the compositionality of MWEs has only been calculated using its constituents and their lexical variants. The use of paraphrases of the overall MWE could be helpful in this task since a paraphrase offers an interpretation of the expression's semantics. For example the meaning of the expression \textit{bad hat} is roughly explained by its paraphrases \textit{criminal} and \textit{trouble makers}.
+
+%AIM AND SCOPE
+%1. With reference to the motivation, state in a single sentence the purpose of the study. Identify the anticipated limitations of the project in terms of factors such as location, framework, application, completeness, or participants.
+%2. Characteristics -- it responds directly to the motivation, it is singular (it concerns a single goal and activity) and it suggests the project's title.
+%3. Incase of multiple aims, construct one as the primary aim and others as secondary aims that follow naturally and easily from the first.
+%4. The title sets the tone and raises expectations about the entire work. Therefore the aim must directly reflect the title of the thesis and establish a clear link between what is expected and what is delivered.
+%5. It is important to clarify what can be accomplished with limited resources and within the deadline.
+%6. Limitations and scope -- could involve time, complexity of the work, the applications of the outcome, the amount and type of data available.
+\section{Aim and Scope}
+Given the abundance and frequency of MWEs, as well as the pertinent issue of effectively predicting their compositionality, we introduce the following tasks:
+\begin{itemize}
+    \item Modeling the compositionality degree of MWEs
+    \item Comparing the performance of various modern language embedding models in the task of compositionality prediction
+    %\item Learning shared sub-tasks from Semantic Relation interpretation using a multi-task learning model to aid with the prediction of compositionality
+\end{itemize}
+For the sake of feasibility given time and resources, we restrict our study largely to English binary noun compounds and pretrained language embedding models.
+
+%RESEARCH QUESTIONS
+%1. With reference to the problem and aims, state the emphases of the study in the form of questions, perhaps even just a single question.
+%1. The questions are not the same as the aim.
+%2. A strong thesis usually rests on a single question, but to provide highly specific direction to the work, it may be appropriate to use related questions to suggest a thread of activity.
+\section{Research Questions}
+Our broad research question of finding the most efficient compositionality prediction method for English binary noun compounds proposed further related questions, which we explore in this thesis:
+\begin{enumerate}
+    \item How well do various pre-trained language embedding models capture MWE compositionality?
+    \item Could paraphrases of the MWE help with the prediction of its compositionality?
+    %\item Can learning inferred from the task of predicting the semantic relationship between MWE constituents be applied to the task of compositionality prediction? 
+\end{enumerate}
+
+\section{Contributions}
+%APPROACH AND OUTCOMES
+%1. Briefly provide an overview of the methodology of the project, how the outcomes were achieved, and what they were.
+%2. Is it a study or a case study? It's a study i.e. you are investigating a phenonemenon in specific context. Is it qualitative or quantitative? Observational or inventive? Based on existing tools or tools developed for the project.
+%3. How will your outcomes be measured and assessed? What constitutes a positive outcome?
+%4. Set the expectation of what tools and data would be required to perform this study. Present an overview of the approach and the kind of data used.
+%5. Be sure to present the results briefly and outline its implications.
+In order to effectively model the compositionality of  noun compounds, we devise three broad classes of methods to calculate their compositionality score based on the similarity between the vector representation of the expression and that of its constituents and paraphrases combined in some meaningful way using weights (see \secref{sec:method}). We then experiment with various pre-trained language embeddings (detailed in \secref{sec:emb}) to generate the vector representations and compare the scores achieved.
+\begin{enumerate}
+    \item We show that, despite their effectiveness over a range of tasks, recent off-the-shelf character and document-level embedding models are inferior to simple \wordtovec at modelling MWE compositionality.
+    \item We demonstrate the utility of paraphrase data in addition to simple lemmas in the task of compositionality prediction.
+\end{enumerate}
+
+%OVERVIEW
+%1. Provide a brief summary of what is to follow, chapter by chapter.
+%2. It is a sketch of the learning the reader must go through in order to appreciate your project and its outcomes.
+%3. It states what is explained where and in what order.
+\section{Overview of the Thesis}
+\label{overview}
+This thesis is structured as follows:
+\begin{itemize}
+    \item \textbf{Chapter 2}
+    In this chapter, we provide an overview of multiword expressions, specifically binary noun compounds, and the task of compositionality prediction by highlighting relevant past literature. We also describe various language embedding models currently used in natural language processing.
+    \item \textbf{Chapter 3} Here, we compare the performance of various language embedding models in predicting the compositionality of MWEs, mainly English binary noun compounds. We also study the use of paraphrase data in this task.
+    %\item \textbf{Chapter 4} This chapter discusses the use of a multitask machine learning model that uses learning from the task of predicting the semantic relationship of MWEs to the task of predict their compositionality.
+    \item \textbf{Chapter 4} Finally, we summarise our work, discuss our findings in a broader context and propose future work.
+\end{itemize}

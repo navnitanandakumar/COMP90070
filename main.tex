@@ -1,0 +1,213 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{url}
+\usepackage{savetrees}
+\usepackage{apacite}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[caption = false]{subfig}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{xspace}
+\usepackage{xcolor}
+\usepackage{paralist}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usetikzlibrary{angles, arrows.meta, quotes}
+\usepackage{relsize}
+\usepackage{etoolbox}
+\usepackage{enumerate}
+\graphicspath{ {Figures/} }
+\renewcommand{\baselinestretch}{1.5}
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+% argument #1: any options
+%% local settings
+\sisetup{detect-weight,mode=text}
+% for avoiding siunitx using bold extended
+\renewrobustcmd{\bfseries}{\fontseries{b}\selectfont}
+\renewrobustcmd{\boldmath}{}
+% abbreviation
+\newrobustcmd{\B}{\bfseries}
+% shorten the intercolumn spaces
+\addtolength{\tabcolsep}{-4.1pt}
+\pgfplotstableread{
+x   farahm  reddy   ramisch discoj
+doc2vec .088  .025 .039    .003 
+Infersent   .019    .527    .221    .202
+fastText    .295    .285    .446    .353
+ELMo    .283    .406    .486   .316
+BERT    .193    .372    .107    .181
+Flair   .23 .102   .311    .303
+word2vec    .35 .634    .581    .427
+}\datasetq
+\pgfplotstableread{
+x   direct para combined
+doc2vec .039    .388    .419
+Infersent   .221    .712    .712
+fastText    .446    .703    .703
+ELMo    .459    .546    .546
+BERT    .086    .583    .583
+Flair   .295    .492    .492
+word2vec    .581    .510    .677
+}\datasetp
+\newcommand{\embmethod}[2][]{\textsf{#2}$_{\text{#1}}$\xspace}
+\newcommand{\wordtovec}{\embmethod{word2vec}}
+\newcommand{\infersent}[1][]{\embmethod[#1]{infersent}}
+\newcommand{\doctovec}{\embmethod{doc2vec}}
+\newcommand{\elmo}{\embmethod{ELMo}}
+\newcommand{\elmocon}{\embmethod{ELMo\textsubscript{context}}}
+\newcommand{\fasttext}{\embmethod{fastText}}
+\newcommand{\fasttextpre}{\embmethod{fastText\textsubscript{pre}}}
+\newcommand{\glove}{\embmethod{GloVe}}
+\newcommand{\bert}{\embmethod{BERT}}
+\newcommand{\bertcon}{\embmethod{BERT\textsubscript{context}}}
+\newcommand{\flair}{\embmethod{Flair}}
+\newcommand{\flaircon}{\embmethod{Flair\textsubscript{context}}}
+
+\newcommand{\dataset}[2][]{\textsc{#2}$_{\text{#1}}$\xspace}
+\newcommand{\reddy}{\dataset{Reddy}}
+\newcommand{\ramisch}{\dataset{Ramisch}}
+\newcommand{\discoj}[1][]{\dataset[#1]{DiSCo}}
+\newcommand{\farahm}{\dataset{Farahmand}}
+
+\newcommand{\method}[2][]{\ensuremath{\text{#2}_{\text{#1}}}\xspace}
+\newcommand{\presum}{\method[pre]{Direct}}
+\newcommand{\postsum}{\method[post]{Direct}}
+\newcommand{\firstpara}{\method{Para\_first}}
+\newcommand{\avgparapre}{\method[pre]{Para\_all}}
+\newcommand{\avgparapost}{\method[post]{Para\_all}}
+\newcommand{\combined}{\method{Combined}}
+
+\newcommand{\MWEvec}{\ensuremath{\mathbf{mwe}}\xspace}
+\newcommand{\paravec}[1][]{\ensuremath{\mathbf{para_{#1}}}\xspace}
+\newcommand{\MWEonevec}{\ensuremath{\mathbf{w_1}}\xspace}
+\newcommand{\MWEtwovec}{\ensuremath{\mathbf{w_2}}\xspace}
+
+\newcommand{\tabref}[2][]{Table#1~\ref{#2}\xspace}
+\newcommand{\figref}[2][]{Figure#1~\ref{#2}\xspace}
+\newcommand{\secref}[2][]{Section#1~\ref{#2}\xspace}
+
+\begin{filecontents}{alpha_reddy.dat}
+X	elmo	bert	fasttext	w2v	d2v	is1	is2	flair
+0.0	0.278	0.332	0.252	0.463	0.025	0.329	0.312	0.024
+0.1	0.311	0.345	0.266	0.496	0.023	0.369	0.349	0.003
+0.2	0.344	0.352	0.278	0.531	0.019	0.412	0.391	-0.021
+0.3	0.375	0.349	0.285	0.563	0.013	0.454	0.437	-0.050
+0.4	0.397	0.335	0.285	0.591	0.006	0.487	0.482	-0.081
+0.5	0.406	0.311	0.274	0.611	-0.004	0.500	0.516	-0.113
+0.6	0.399	0.281	0.255	0.622	-0.015	0.487	0.527	-0.143
+0.7	0.381	0.249	0.228	0.620	-0.023	0.453	0.511	-0.167
+0.8	0.355	0.218	0.200	0.608	-0.030	0.409	0.474	-0.184
+0.9	0.328	0.189	0.172	0.587	-0.033	0.364	0.427	-0.195
+1.0	0.301	0.164	0.147	0.560	-0.035	0.324	0.380	-0.201
+\end{filecontents}
+\begin{filecontents}{alpha_ramisch.dat}
+X	elmo	bert	fasttext	w2v	d2v	is1	is2	flair
+0.0	0.239	-0.025	0.203	0.403	-0.154	0.040	0.097	-0.021
+0.1	0.282	-0.011	0.249	0.444	-0.153	0.093	0.118	0.011
+0.2	0.329	0.005	0.299	0.484	-0.150	0.158	0.142	0.048
+0.3	0.378	0.021	0.347	0.521	-0.142	0.233	0.169	0.088
+0.4	0.421	0.036	0.389	0.550	-0.125	0.311	0.194	0.131
+0.5	0.450	0.049	0.420	0.569	-0.098	0.374	0.213	0.173
+0.6	0.459	0.061	0.439	0.577	-0.064	0.412	0.221	0.211
+0.7	0.448	0.070	0.446	0.573	-0.029	0.427	0.217	0.242
+0.8	0.425	0.077	0.444	0.561	0.000	0.426	0.207	0.266
+0.9	0.397	0.082	0.437	0.543	0.022	0.418	0.193	0.284
+1.0	0.370	0.086	0.426	0.521	0.039	0.406	0.179	0.295
+\end{filecontents}
+\begin{filecontents}{alpha_discoj.dat}
+X	elmo	bert	fasttext	w2v	d2v	is1	is2	flair
+0.0	0.159	0.148	0.244	0.404	0.003	0.261	-0.135	0.257
+0.1	0.187	0.161	0.269	0.416	0.002	0.236	-0.113	0.270
+0.2	0.217	0.171	0.293	0.426	0.001	0.286	-0.084	0.282
+0.3	0.248	0.177	0.315	0.431	-0.001	0.307	-0.045	0.290
+0.4	0.274	0.177	0.334	0.431	-0.003	0.315	0.005	0.291
+0.5	0.287	0.174	0.347	0.426	-0.005	0.306	0.059	0.282
+0.6	0.286	0.168	0.353	0.416	-0.007	0.283	0.109	0.263
+0.7	0.272	0.160	0.353	0.402	-0.008	0.252	0.147	0.237
+0.8	0.253	0.152	0.348	0.384	-0.008	0.221	0.174	0.208
+0.9	0.233	0.144	0.338	0.364	-0.009	0.192	0.191	0.180
+1.0	0.214	0.137	0.326	0.344	-0.009	0.168	0.202	0.153
+\end{filecontents}
+\begin{filecontents}{alpha_farahm.dat}
+X	elmo	bert	fasttext	w2v	d2v	is1	is2	flair
+0.0	0.200	0.067	0.0	0.155	0.061	0.0	-0.047	0.126
+0.1	0.221	0.089	0.0	0.184	0.066	0.0	-0.046	0.145
+0.2	0.243	0.113	0.0	0.215	0.071	0.0	-0.044	0.165
+0.3	0.264	0.135	0.0	0.246	0.075	0.0	-0.04	0.186
+0.4	0.278	0.155	0.0	0.276	0.079	0.0	-0.034	0.206
+0.5	0.278	0.171	0.0	0.302	0.082	0.0	-0.025	0.221
+0.6	0.263	0.182	0.0	0.323	0.085	0.0	-0.014	0.23
+0.7	0.239	0.188	0.0	0.338	0.087	0.0	-0.003	0.23
+0.8	0.211	0.192	0.0	0.347	0.088	0.0	0.006	0.224
+0.9	0.184	0.193	0.0	0.35	0.088	0.0	0.013	0.214
+1.0	0.160	0.192	0.0	0.349	0.088	0.0	0.019	0.203
+\end{filecontents}
+
+\begin{document}
+\title{\textbf{Compositionality Prediction of Multiword Expressions}  \\ \bigskip {\includegraphics[width=45mm]{logo.png}}}
+\author{\Large {Navnita Nandakumar (921834)} \\
+\large Department of Computing and Information System \\
+\large The University of Melbourne \\ \\
+\Large {Credit Points: 75} \\ \Large {COMP90070 - Research Project} \\ \\
+\Large{Supervisors} \\ \large Prof. Timothy Baldwin \\ Dr. Bahar Salehi \\ \\
+A thesis submitted in partial fulfillment of the requirements \\ for the degree of \\ \textit{Master of Science in Computer Science}
+}
+\date{June 2019}
+
+\pagenumbering{gobble}
+\maketitle
+\chapter*{\centering \LARGE Declaration}
+I certify that:
+\begin{enumerate}
+\item This thesis does not incorporate without acknowledgement any material previously submitted for a degree or diploma in any university; and that to the best of my knowledge and belief it does not contain any material previously published or written by another person where due reference is not made in the text.
+\item The thesis is fewer than 25000 words in length (excluding text in images, table, bibliographies and appendices).
+\end{enumerate}
+\bigskip
+\bigskip
+Signed: \hrulefill Dated: \hrulefill
+ 
+\chapter*{\centering \LARGE Acknowledgements}
+Acknowledgements will appear here.
+
+\chapter*{\centering \LARGE Abstract}
+This thesis investigates the use of various language embedding models in predicting the compositionality of multiword expressions. 
+%and proposes a novel solution using multitask learning, in the context of multiword expressions. 
+A multiword expression is a collection of two or more words that conveys a single meaning and can, thus, be treated as a single unit-- \textit{snail mail} and \textit{in the long run} are some examples. The compositionality of such an expression, then, is the extent to which the meaning of the expression can be determined by that of its constituents. The notion of compositionality is crucial in various natural language processing tasks like information retrieval and machine translation.
+
+ Language embedding models generate a multidimensional vector representation of text (words, sentences or documents), wherein each dimension represents an aspect of the text's meaning. In this study, we compare the performance of various modern language embedding models to the task of predicting the compositionality of multiword expressions. We find that, despite being shown to work impressively well across a range of tasks, they are unable to effectively capture (non-)compositionality. We also investigate the use of paraphrase data in this task and find that it produces better results across all models.
+%Our study focuses mainly on English binary noun compounds (noun-noun pairs) and is categorised into two parts:
+%\begin{enumerate}
+%    \item A comparative study of how well various modern language embedding models capture the compositionality of multiword expressions, and
+%    \item The development of a multitask learning model that applies learning from the task of determining the semantic relationship between the component nouns of a compound to the task of predicting its compositionality.
+%\end{enumerate}
+%SUMMARISE THE RELEVANCE AND USE OF THE STUDY
+
+\chapter*{\centering \LARGE Citations to Previously Published Work}
+Large portions of Chapter 3 have appeared in the following papers:
+\begin{quote}
+Nandakumar, Navnita, Bahar Salehi and Timothy Baldwin (2018) A Comparative Study of Embedding Models in Predicting the Compositionality of Multiword Expressions, In Proceedings of the Sixteenth Annual Workshop of the Australasian Language Technology Association (ALTA 2018), Dunedin, New Zealand, pp. 71—76.
+\end{quote}
+\begin{quote}
+Nandakumar, Navnita, Timothy Baldwin and Bahar Salehi (to appear) How Well Do Embedding Models Capture Non-compositionality? A View from Multiword Expressions, In Proceedings of the Third Workshop on Evaluating Vector Space Representations for NLP (RepEval 2019), Minneapolis, USA.
+\end{quote}
+ 
+\tableofcontents
+\listoftables
+\listoffigures
+\newpage
+\pagenumbering{arabic}
+\include{Introduction}
+\include{Background}
+\include{ComparativeStudy}
+%\include{MultitaskLearning}
+\include{Conclusion}
+
+\bibliographystyle{apalike}
+\bibliography{References}
+\nocite{*}
+\end{document}

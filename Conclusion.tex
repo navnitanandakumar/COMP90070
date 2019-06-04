@@ -1,0 +1,17 @@
+\chapter{Conclusion}
+In this thesis, we investigated the use of various pre-trained language embedding models on the task of predicting the compositionality of multiword expressions. We conducted a comparative study of their performance and found that \wordtovec is consistent in providing the best results across datasets. We also devised a metric that employs paraphrase data to aid in the task and found that they greatly enhance our predictions.
+
+\noindent
+In this chapter, we summarize the findings of each chapter and propose future work.
+
+\section{Contributions}
+In Chapter 2, we discussed multiword expressions and the problems they pose in natural language processing tasks. We then looked at the task of predicting their compositionality in more detail and provided a brief description of the existing methods used. Finally, we went over various language embedding methods, including character-, word-, sentence- and document-level embeddings and some of the popularly used models of each. We also provided an account of their usage in NLP tasks.
+
+In Chapter 3, we discussed some direct combination metrics used in previous studies to measure the compositionality of MWEs using their embeddings. We also proposed a new set of metrics based on paraphrase data and a combined metric to use both the paraphrases and constituents of an MWE to predict its compositionality. We experimented with the various embedding models introduced in Chapter 2 and compared their performance and found that \wordtovec outperforms all other modern embedding techniques, including contextualised embeddings. We also note the significant correlations achieved by \fasttext and \infersent and highlight the fact that they were able to overcome the caveat of \wordtovec, i.e. the need to identify the MWE at a token-level pre-training. We also found that paraphrase data greatly enhance our predictions.
+
+\section{Future Work}
+Although this thesis gave us new insights into the task of compositionality prediction, it still leaves a few questions unanswered and has scope for improvement.
+
+In Chapter 3, we used pretrained models of each embedding technique and were therefore unable to perform a controlled comparison. Training all the models discussed on the same corpus might reduce some of the variation we observed in our results. We also did not explicitly tune our hyperparameters over held-out data, which might have resulted in overfitted results. Our intention was to show that even the \textit{best possible result} achievable was not good enough. However, proper fine-tuning is essential to create reliable, reproducible results.
+
+The work in this thesis can be extended to other languages, which might be helpful in devising some language-independent techniques. Lastly, seeing the positive effect of paraphrases on the task, it might be worthwhile to consider the effect of other resources, such as semantic relations, on the task of compositionality prediction.
