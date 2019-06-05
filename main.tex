@@ -1,14 +1,12 @@
-\documentclass[12pt,a4paper]{report}
+\documentclass[12pt,a4paper, margin=1in]{report}
 \usepackage[utf8]{inputenc}
 \usepackage{float}
 \usepackage{times}
 \usepackage{latexsym}
 \usepackage{url}
-\usepackage{savetrees}
 \usepackage{apacite}
 \usepackage{natbib}
 \usepackage{graphicx}
-\usepackage[caption = false]{subfig}
 \usepackage{pgfplots}
 \usepackage{pgfplotstable}
 \usepackage{xspace}
@@ -23,7 +21,6 @@
 \usepackage{enumerate}
 \graphicspath{ {Figures/} }
 \renewcommand{\baselinestretch}{1.5}
-\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
 % argument #1: any options
 %% local settings
 \sisetup{detect-weight,mode=text}
@@ -135,28 +132,26 @@ X	elmo	bert	fasttext	w2v	d2v	is1	is2	flair
 \end{filecontents}
 \begin{filecontents}{alpha_farahm.dat}
 X	elmo	bert	fasttext	w2v	d2v	is1	is2	flair
-0.0	0.200	0.067	0.0	0.155	0.061	0.0	-0.047	0.126
-0.1	0.221	0.089	0.0	0.184	0.066	0.0	-0.046	0.145
-0.2	0.243	0.113	0.0	0.215	0.071	0.0	-0.044	0.165
-0.3	0.264	0.135	0.0	0.246	0.075	0.0	-0.04	0.186
-0.4	0.278	0.155	0.0	0.276	0.079	0.0	-0.034	0.206
-0.5	0.278	0.171	0.0	0.302	0.082	0.0	-0.025	0.221
-0.6	0.263	0.182	0.0	0.323	0.085	0.0	-0.014	0.23
-0.7	0.239	0.188	0.0	0.338	0.087	0.0	-0.003	0.23
-0.8	0.211	0.192	0.0	0.347	0.088	0.0	0.006	0.224
-0.9	0.184	0.193	0.0	0.35	0.088	0.0	0.013	0.214
-1.0	0.160	0.192	0.0	0.349	0.088	0.0	0.019	0.203
+0.0	0.200	0.067	0.233	0.155	0.061	-0.046	-0.047	0.126
+0.1	0.221	0.089	0.247	0.184	0.066	-0.044	-0.046	0.145
+0.2	0.243	0.113	0.266	0.215	0.071	-0.04	-0.044	0.165
+0.3	0.264	0.135	0.272	0.246	0.075	-0.031	-0.04	0.186
+0.4	0.278	0.155	0.277	0.276	0.079	-0.029	-0.034	0.206
+0.5	0.278	0.171	0.279	0.302	0.082	-0.014	-0.025	0.221
+0.6	0.263	0.182	0.284	0.323	0.085	-0.002	-0.014	0.23
+0.7	0.239	0.188	0.291	0.338	0.087	0.000	-0.003	0.23
+0.8	0.211	0.192	0.295	0.347	0.088	0.005	0.006	0.224
+0.9	0.184	0.193	0.294	0.35	0.088	0.009	0.013	0.214
+1.0	0.160	0.192	0.288	0.349	0.088	0.010	0.019	0.203
 \end{filecontents}
 
 \begin{document}
-\title{\textbf{Compositionality Prediction of Multiword Expressions}  \\ \bigskip {\includegraphics[width=45mm]{logo.png}}}
-\author{\Large {Navnita Nandakumar (921834)} \\
-\large Department of Computing and Information System \\
-\large The University of Melbourne \\ \\
-\Large {Credit Points: 75} \\ \Large {COMP90070 - Research Project} \\ \\
-\Large{Supervisors} \\ \large Prof. Timothy Baldwin \\ Dr. Bahar Salehi \\ \\
-A thesis submitted in partial fulfillment of the requirements \\ for the degree of \\ \textit{Master of Science in Computer Science}
-}
+\title{\textbf{Compositionality Prediction of Multiword Expressions}\\ \bigskip \includegraphics[width=45mm]{logo.png} }
+\author{ \Large {Navnita Nandakumar (921834)} \\
+Department of Computing and Information System \\ \medskip
+The University of Melbourne \\
+\large Credit Points: 75 \\ \medskip \large COMP90070 - Research Project \\
+\large \textit{Supervisors} \\ \large Prof. Timothy Baldwin \\ \medskip Dr. Bahar Salehi \\ A thesis submitted in partial fulfillment of the requirements \\ for the degree of \\ \textit{Master of Science in Computer Science}}
 \date{June 2019}
 
 \pagenumbering{gobble}
@@ -204,7 +199,7 @@ Nandakumar, Navnita, Timothy Baldwin and Bahar Salehi (to appear) How Well Do Em
 \include{Introduction}
 \include{Background}
 \include{ComparativeStudy}
-%\include{MultitaskLearning}
+\include{MultitaskLearning}
 \include{Conclusion}
 
 \bibliographystyle{apalike}

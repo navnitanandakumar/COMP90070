@@ -35,16 +35,19 @@ This dataset comprises 1042 English binary noun compounds with four accompanying
 
 \noindent
 For our experiments, we compute the average of the four labels to produce a score ranging from [0,1] to match our regression task. \figref{fig:datasets} shows a section of the datasets used in this study.
-\begin{figure}[h!]
-\begin{center}
-    \subfloat[\reddy]{\includegraphics[width = .32\textwidth,]{Figures/reddy.PNG}}
-     \subfloat[\discoj]{\includegraphics[width = .33\textwidth]{Figures/disco_j.PNG}}
-      \subfloat[\farahm]{\includegraphics[width = .25\textwidth]{Figures/farahm_after.PNG}}\\
-      \subfloat[\ramisch]{\includegraphics[width = .7\textwidth]{Figures/ramisch.PNG}}
-    \caption{Datasets used in this study}
-    \label{fig:datasets}
-\end{center}
-\end{figure}
+\begin{figure*}[h!]
+\centering
+\includegraphics[width = .32\textwidth,]{Figures/reddy.PNG}
+\small (a) \reddy
+\includegraphics[width = .33\textwidth]{Figures/disco_j.PNG}
+\small (b) \discoj
+\includegraphics[width = .25\textwidth]{Figures/farahm_after.PNG}
+\small (c) \farahm
+\includegraphics[width = .7\textwidth]{Figures/ramisch.PNG}
+\small (d) \ramisch
+\caption{Datasets used in this study}
+\label{fig:datasets}
+\end{figure*}
 
 \begin{table}[t]
 \begin{center}
@@ -145,6 +148,7 @@ We used sentences extracted from the Brown corpus where available in order to de
 
 We also included a naive context-independent implementation of \elmo, \bert and \flair in our study, consistent with the other models. This also helped us test our intuition that the relative compositionality of even novel compounds could potentially be predicted from its component words alone. Consider for instance the unseen expression \textit{``giraffe potato''}, which could have the plausible compositional interpretation of a potato shaped like a giraffe (considering contexts like \textit{round potato}, say), while \textit{``couch intelligence''} might have no natural interpretation given its context and could, therefore, be assumed to have a non-compositional meaning.
 
+%Nav: clean up diagrams and tables, rewrite the section to include insights on farahm dataset also
 \section{Results and Discussion}
 \label{sec:results}
 The results from our experiments on the \reddy,  \discoj, \farahm and \ramisch datasets can be found in \tabref[s]{tab:reddy},\ref{tab:discoj}, \ref{tab:farahm} and \ref{tab:ramisch}, respectively, with the best performing $\alpha$s and $\beta$s mentioned for each embedding model.
@@ -304,9 +308,10 @@ The results from our experiments on the \reddy,  \discoj, \farahm and \ramisch d
 \caption{Use of Paraphrases (\ramisch)}
 \end{center}
 \end{figure}
-\begin{figure}[t]
-\begin{center}
-\subfloat[\reddy]{\begin{tikzpicture}
+
+\begin{figure*}[t!]
+    \centering
+        \begin{tikzpicture}
 \begin{axis}[
 axis lines=middle,
 width=0.5*\textwidth,
@@ -332,8 +337,8 @@ xmax=1.0,
 \addplot[purple,thick] table [y= bert,x=X]{alpha_reddy.dat};
 \addplot[pink,thick] table [y= flair,x=X]{alpha_reddy.dat};
 \end{axis}
-\end{tikzpicture}}
-\subfloat[\ramisch]{\begin{tikzpicture}
+\end{tikzpicture}
+        \begin{tikzpicture}
 \begin{axis}[
   axis lines=middle,
   width=0.5*\textwidth,
@@ -361,26 +366,8 @@ xmax=1.0,
 \addplot[purple,thick] table [y= bert,x=X]{alpha_ramisch.dat};
 \addplot[pink,thick] table [y= flair,x=X]{alpha_ramisch.dat};
 \end{axis}
-\end{tikzpicture}}\\
-
-\begin{tikzpicture}
-\begin{axis}[xmin=0,xmax=0.01,ymin=0,ym\qquad 
-\raisebox{20pt}x\qquad 
-\raisebox{20pt}.01,name=border,hide axis]
-\end{axis}
-\node[] at (0,0) {%
-\begin{tabular}{@{}r@{ }l@{}}
- \raisebox{2pt}{\tikz{\draw[yellow] (0,0) -- (5mm,0);}}&\wordtovec\qquad 
- \raisebox{2pt}{\tikz{\draw[green] (0,0) -- (5mm,0);}}&\fasttext\qquad 
- \raisebox{2pt}{\tikz{\draw[blue] (0,0) -- (5mm,0);}}&\doctovec\qquad 
- \raisebox{2pt}{\tikz{\draw[brown] (0,0) -- (5mm,0);}}&\infersent[\glove]\qquad 
- \raisebox{2pt}{\tikz{\draw[red] (0,0) -- (5mm,0);}}&\infersent[\fasttext]\qquad 
- \raisebox{2pt}{\tikz{\draw[orange] (0,0) -- (5mm,0);}}&\elmo\qquad 
- \raisebox{2pt}{\tikz{\draw[purple] (0,0) -- (5mm,0);}}&\bert\qquad 
- \raisebox{2pt}{\tikz{\draw[pink] (0,0) -- (5mm,0);}}&\flair
-\end{tabular}}
-\end{tikzpicture}
-\subfloat[\discoj]{\begin{tikzpicture}
+\end{tikzpicture}\\
+        \begin{tikzpicture}
 \begin{axis}[
 axis lines=middle,
 width=0.5*\textwidth,
@@ -406,8 +393,8 @@ xmin=0.0,
 \addplot[purple,thick] table [y= bert,x=X]{alpha_discoj.dat};
 \addplot[pink,thick] table [y= flair,x=X]{alpha_discoj.dat};
 \end{axis}
-\end{tikzpicture}}
-\subfloat[\farahm]{\begin{tikzpicture}
+\end{tikzpicture}
+        \begin{tikzpicture}
 \begin{axis}[
 axis lines=middle,
 width=0.5*\textwidth,
@@ -433,11 +420,11 @@ xmax=1.0,
 \addplot[purple,thick] table [y= bert,x=X]{alpha_farahm.dat};
 \addplot[pink,thick] table [y= flair,x=X]{alpha_farahm.dat};
 \end{axis}
-\end{tikzpicture}}
-\caption{Sensitivity analysis of $\alpha$}
+\end{tikzpicture}
+\caption{\farahm}
+    \caption{Sensitivity analysis of $\alpha$}
 \label{fig:sens}
-\end{center}
-\end{figure}
+\end{figure*}
 
 We observe that the $\alpha$s in \tabref[s]{tab:ramisch},\ref{tab:farahm}: are high, implying the compound nouns in \ramisch and \farahm are more compositional in terms of their head (second) nouns. Similarly, the lower $\alpha$ scores in \tabref{tab:reddy} suggest \reddy's compound nouns are more dependent on their modifiers, or first nouns. \tabref{tab:discoj}, on the other hand, shows the $\alpha$s embracing the entire range of $[0,1]$. This suggests the adjective--noun pairs in \discoj display a spread of compositionality. Overall, the methods are sensitive to the choice of the $\alpha$ hyper-parameter, with \elmo and \infersent being particularly sensitive and showing substantial change in output with change in $\alpha$ (\figref[s]{fig:sensReddy},\ref{fig:sensRamisch} and \ref{fig:sensDiscoj}).
 

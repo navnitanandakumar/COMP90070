@@ -73,19 +73,20 @@ Language models compute the probability distribution of the next word in a seque
 
 Embedding techniques represent a text (word, sentence or document) as multidimensional continuous floating point numbers that each capture a dimension of the text's meaning, where semantically similar texts are mapped to proximate points in geometric space. Each dimension of the vector represents a meaning, i.e. the text's numerical weight on that dimension captures the closeness of its association to that meaning. Thus, the semantics of a text are embedded across the dimensions of its vector, which make semantic associations (like the aforementioned) possible.
 \subsection{Word-level}
-Word-level embeddings, as the name suggests, embed words in vector space. These embeddings are generated using one of two methods:
+Word-level embeddings, as the name suggests, embed words in vector space. These embeddings are generated using one of two methods (\figref{fig:cbowVSskip}\footnote{\url{http://cs224d.stanford.edu/lecture_notes/LectureNotes1.pdf}}):
 \begin{itemize}
 \item \textbf{Continuous bag-of-words (CBOW):} This method predicts a target word using its context. It is relatively quick to train.
 \item \textbf{SkipGram:} This method uses a word to predict a target context. It produces more accurate results on larger datasets and infrequent words, though it takes longer to train.
 \end{itemize}
-\begin{figure}[h!]
+\begin{figure}[!htb]
 \begin{center}
 \includegraphics[width=0.4\textwidth]{Figures/CBOW.PNG}
 \includegraphics[width=0.4\textwidth]{Figures/SkipGram.PNG}
-\caption{CBOW vs. SkipGram methods of training \footnotemark}
+\caption{CBOW vs. SkipGram methods of training}
+\label{fig:cbowVSskip}
 \end{center}
 \end{figure}
-\footnotetext{\url{http://cs224d.stanford.edu/lecture_notes/LectureNotes1.pdf}}
+
 
 \paragraph{\wordtovec} \wordtovec \citep{Mikolov2013b} is a two-layer neural net that processes text. Its input is a text corpus and its output is a set of feature vectors for word types in that corpus. It treats words as distinct states and looks for the transitional probabilities between those states, i.e. the likelihood that they will co-occur. \wordtovec groups the vectors of similar words in vector space and can, thus, detect similarities mathematically. It does this by using the numerical representations of features such as the context of individual words to generate the word vectors. The model adjusts the vector components if it is unable to make accurate predictions of the word's context based on its assigned feature vector in the case of SkipGram (vice versa for CBOW). That is how the vectors of words judged to be similar based on their context are plotted closer together.
 
@@ -164,12 +165,11 @@ As the name suggests, \bert (Bidirectional Encoder Representations from Transfor
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{Figures/Flair.PNG}
-\caption{\flair performing NER tagging\footnotemark}
+\caption{\flair performing NER tagging}
 \label{fig:flair}
 \end{center}
 \end{figure}
-\footnotetext{\url{https://research.zalando.com/welcome/mission/research-projects/flair-nlp/}}
-\flair has been shown to outperfrom previous state-of-the-art embedding models in various downstream tasks like sequence labelling and named-entity recognition, as seen in \figref{fig:flair} \citep{Akbik2018}.
+\flair has been shown to outperfrom previous state-of-the-art embedding models in various downstream tasks like sequence labelling and named-entity recognition, as seen in \figref{fig:flair}\footnote{\url{https://research.zalando.com/welcome/mission/research-projects/flair-nlp/}} \citep{Akbik2018}.
 
 \section{Summary}
 In this chapter, we provided a brief overview on multiword expressions and their importance. We discussed the prediction of the compositionality of such expressions and detailed some of the existing methods used in this task. Finally, we described some of the modern language embedding models and their use in natural language processing.
